@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "msfs-pro-local-TEMP": {
+      "command": "node",
+      "args": [
+        "c:\\Users\\jf102f\\Desktop\\Madan\\Others\\side_projects\\msfs-pro-mcp\\src\\index.js"
+      ],
+      "env": {
+        "SIMCONNECT_HOST": "127.0.0.1",
+        "SIMCONNECT_PORT": "500",
+        "POLL_INTERVAL": "500"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "watch_simvar",
+        "unwatch_simvar",
+        "list_watched_simvars",
+        "get_simvar",
+        "get_all_state",
+        "get_connection_status",
+        "debug_log",
+        "send_event",
+        "run_inspecthtml"
+      ]
+    }
+  }
+}

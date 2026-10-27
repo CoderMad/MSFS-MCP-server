@@ -1,0 +1,228 @@
+{
+  "description": "Boeing 737 MAX 8 Cockpit Input Event Reference — derived from B737_MAX8_Cockpit_Behavior.xml",
+  "version": "2.0.0",
+  "usage": "Use fire_input_event(eventName, value?) or list_input_events(filter) to interact with these controls",
+  "panels": {
+    "MCP_AUTOPILOT": {
+      "description": "Mode Control Panel (Glareshield) — FCC autopilot controls",
+      "prefix": "FCC_",
+      "controls": {
+        "FCC_N1": { "type": "button", "description": "N1 mode" },
+        "FCC_SPEED": { "type": "button", "description": "Speed (IAS/Mach) mode", "alias": "FCC_AP_SPD" },
+        "FCC_VNAV": { "type": "button", "description": "VNAV mode", "alias": "FCC_AP_VNAV" },
+        "FCC_LNAV": { "type": "button", "description": "LNAV mode", "alias": "FCC_AP_LNAV" },
+        "FCC_LVL_CHG": { "type": "button", "description": "Level Change mode", "alias": "FCC_AP_FLCH" },
+        "FCC_VOR_LOC": { "type": "button", "description": "VOR/LOC mode" },
+        "FCC_APP": { "type": "button", "description": "Approach mode" },
+        "FCC_ALT_HLD": { "type": "button", "description": "Altitude Hold" },
+        "FCC_HDG_SEL": { "type": "button", "description": "Heading Select" },
+        "FCC_VS": { "type": "button", "description": "Vertical Speed mode" },
+        "FCC_CMD_1": { "type": "button", "description": "CMD A autopilot engage" },
+        "FCC_CMD_2": { "type": "button", "description": "CMD B autopilot engage" },
+        "FCC_CWS_1": { "type": "button", "description": "CWS A" },
+        "FCC_CWS_2": { "type": "button", "description": "CWS B" },
+        "FCC_FD_1": { "type": "switch", "description": "Flight Director 1 (Captain)", "values": "0=OFF, 1=ON" },
+        "FCC_FD_2": { "type": "switch", "description": "Flight Director 2 (F/O)", "values": "0=OFF, 1=ON" },
+        "FCC_AUTOTHROTTLE": { "type": "switch", "description": "Autothrottle arm", "values": "0=OFF, 1=ARMED" },
+        "FCC_DISENGAGE": { "type": "button", "description": "AP disengage bar" },
+        "FCC_CHANGEOVER": { "type": "button", "description": "IAS/MACH changeover" },
+        "FCC_SPEED_INTERVENTION": { "type": "button", "description": "Speed intervention" },
+        "FCC_ALTITUDE_INTERVENTION": { "type": "button", "description": "Altitude intervention" },
+        "FCC_SPEED_SEL": { "type": "knob_infinite", "description": "Speed selector knob", "note": "Use INC/DEC or set value directly" },
+        "FCC_HEADING_SEL": { "type": "knob_infinite", "description": "Heading selector knob" },
+        "FCC_ALTITUDE_SEL": { "type": "knob_infinite", "description": "Altitude selector knob", "note": "Set value=altitude in feet (e.g. 30000)" },
+        "FCC_VERTICAL_SPEED_SEL": { "type": "knob_infinite", "description": "V/S thumb wheel" },
+        "FCC_BANK_ANGLE_SEL": { "type": "knob", "description": "Bank angle limit selector", "values": "0=10°, 1=15°, 2=20°, 3=25°, 4=30°" },
+        "FCC_COURSE_1": { "type": "knob_infinite", "description": "Course selector 1 (Captain)" },
+        "FCC_COURSE_2": { "type": "knob_infinite", "description": "Course selector 2 (F/O)" }
+      }
+    },
+    "EFIS": {
+      "description": "EFIS controls (Glareshield) — map mode, range, mins, baro",
+      "prefix": "EFIS_",
+      "controls": {
+        "EFIS_WXR": { "type": "button", "description": "Weather radar overlay toggle" },
+        "EFIS_STA": { "type": "button", "description": "Station overlay toggle" },
+        "EFIS_WPT": { "type": "button", "description": "Waypoint overlay toggle" },
+        "EFIS_ARPT": { "type": "button", "description": "Airport overlay toggle" },
+        "EFIS_DATA": { "type": "button", "description": "Data overlay toggle" },
+        "EFIS_POS": { "type": "button", "description": "Position overlay toggle" },
+        "EFIS_TERR": { "type": "button", "description": "Terrain overlay toggle" },
+        "EFIS_VSD": { "type": "button", "description": "Vertical situation display toggle" },
+        "EFIS_FPV": { "type": "button", "description": "Flight path vector toggle" },
+        "EFIS_MTRS": { "type": "button", "description": "Meters toggle" },
+        "EFIS_CTR": { "type": "button", "description": "Center map" },
+        "EFIS_TFC": { "type": "button", "description": "Traffic toggle" },
+        "EFIS_Mode": { "type": "knob", "description": "Map mode selector", "values": "0=APP, 1=VOR, 2=MAP, 3=PLN" },
+        "EFIS_Range": { "type": "knob", "description": "Map range selector", "values": "0-7 (5,10,20,40,80,160,320,640 NM)" },
+        "EFIS_Mins_Ref": { "type": "knob", "description": "Mins reference", "values": "0=RADIO, 1=BARO" },
+        "EFIS_Mins": { "type": "knob_infinite", "description": "Minimums altitude knob" },
+        "EFIS_RST": { "type": "button", "description": "Reset minimums" },
+        "EFIS_BARO": { "type": "knob_infinite", "description": "Barometer setting knob" },
+        "EFIS_BARO_STD": { "type": "button", "description": "Set standard baro (STD)" },
+        "EFIS_BARO_UNIT": { "type": "knob", "description": "Baro units", "values": "0=IN, 1=HPA" },
+        "EFIS_VOR_ADF_1": { "type": "switch", "description": "VOR/ADF selector 1", "values": "0=ADF, 1=OFF, 2=VOR" },
+        "EFIS_VOR_ADF_2": { "type": "switch", "description": "VOR/ADF selector 2", "values": "0=ADF, 1=OFF, 2=VOR" }
+      }
+    },
+    "ANNUNCIATION": {
+      "description": "Glareshield annunciation buttons",
+      "controls": {
+        "ANNUNCIATION_FIRE_WARN": { "type": "button", "description": "Fire warning reset" },
+        "ANNUNCIATION_MASTER_CAUTION": { "type": "button", "description": "Master caution acknowledge" },
+        "ANNUNCIATION_RECALL": { "type": "button", "description": "System recall" },
+        "ANNUNCIATION_AP_DISENGAGE": { "type": "button", "description": "AP disengage light reset" },
+        "ANNUNCIATION_AT_DISENGAGE": { "type": "button", "description": "AT disengage light reset" },
+        "ANNUNCIATION_FMC_LIGHT": { "type": "button", "description": "FMC message light reset" },
+        "ANNUNCIATION_WARNING_TEST": { "type": "switch", "description": "Warning test switch", "values": "0=MCP2, 1=Neutral, 2=MCP1" }
+      }
+    },
+    "OVERHEAD_LIGHTING": {
+      "description": "Overhead panel — external lighting switches",
+      "prefix": "LIGHTING_",
+      "controls": {
+        "LIGHTING_LANDING_LIGHT_FIXED_L": { "type": "switch", "description": "Left landing light", "values": "0=ON, 1=OFF" },
+        "LIGHTING_LANDING_LIGHT_FIXED_R": { "type": "switch", "description": "Right landing light", "values": "0=ON, 1=OFF" },
+        "LIGHTING_RUNWAY_TURNOFF_LIGHT_RUNWAY_TURNOFF_L": { "type": "switch", "description": "Left runway turnoff light" },
+        "LIGHTING_RUNWAY_TURNOFF_LIGHT_RUNWAY_TURNOFF_R": { "type": "switch", "description": "Right runway turnoff light" },
+        "LIGHTING_TAXI_LIGHT_GEAR": { "type": "switch", "description": "Nose gear taxi light" },
+        "LIGHTING_POSITION_LIGHT": { "type": "switch", "description": "Position lights", "values": "0=Steady, 1=Off, 2=Strobe+Steady" },
+        "LIGHTING_LOGO_LIGHT": { "type": "switch", "description": "Logo lights" },
+        "LIGHTING_ANTI_COLLISION_LIGHT": { "type": "switch", "description": "Beacon/anti-collision" },
+        "LIGHTING_WING_LIGHT": { "type": "switch", "description": "Wing inspection lights" }
+      }
+    },
+    "OVERHEAD_ELECTRICAL": {
+      "description": "Overhead panel — electrical system",
+      "prefix": "ELECTRICAL_",
+      "controls": {
+        "ELECTRICAL_BATTERY": { "type": "switch", "description": "Battery switch", "values": "0=ON, 1=OFF" },
+        "ELECTRICAL_GENERATOR_1": { "type": "switch", "description": "Generator 1", "values": "0=ON, 1=Neutral, 2=OFF" },
+        "ELECTRICAL_GENERATOR_2": { "type": "switch", "description": "Generator 2" },
+        "ELECTRICAL_APU_GENERATOR_1": { "type": "switch", "description": "APU Generator 1" },
+        "ELECTRICAL_APU_GENERATOR_2": { "type": "switch", "description": "APU Generator 2" },
+        "ELECTRICAL_EXTERNAL_POWER": { "type": "switch", "description": "Ground power" },
+        "ELECTRICAL_BUS_TRANSFER": { "type": "switch", "description": "Bus transfer", "values": "0=OFF, 1=AUTO" },
+        "ELECTRICAL_STANDBY_POWER": { "type": "switch", "description": "Standby power", "values": "0=BAT, 1=OFF, 2=AUTO" }
+      }
+    },
+    "OVERHEAD_ENGINE": {
+      "description": "Overhead panel — engine controls",
+      "prefix": "ENGINE_",
+      "controls": {
+        "ENGINE_IGNITION_1": { "type": "knob", "description": "Engine 1 start selector", "values": "0=GRD, 1=OFF, 2=CONT, 3=FLT" },
+        "ENGINE_IGNITION_2": { "type": "knob", "description": "Engine 2 start selector" },
+        "ENGINE_IGNITION_SELECT": { "type": "switch", "description": "Ignition select", "values": "0=L, 1=BOTH, 2=R" },
+        "ENGINE_APU": { "type": "switch", "description": "APU master", "values": "0=START, 1=ON, 2=OFF" }
+      }
+    },
+    "OVERHEAD_FUEL": {
+      "description": "Overhead panel — fuel system",
+      "prefix": "FUEL_",
+      "controls": {
+        "FUEL_VALVE_CROSSFEED": { "type": "knob", "description": "Crossfeed valve", "values": "0=CLOSED, 1=OPEN" },
+        "FUEL_PUMP_CTR_L": { "type": "switch", "description": "Center tank left pump" },
+        "FUEL_PUMP_CTR_R": { "type": "switch", "description": "Center tank right pump" },
+        "FUEL_PUMP_AFT_1": { "type": "switch", "description": "Main tank 1 aft pump" },
+        "FUEL_PUMP_FWD_1": { "type": "switch", "description": "Main tank 1 forward pump" },
+        "FUEL_PUMP_FWD_2": { "type": "switch", "description": "Main tank 2 forward pump" },
+        "FUEL_PUMP_AFT_2": { "type": "switch", "description": "Main tank 2 aft pump" }
+      }
+    },
+    "OVERHEAD_HYDRAULIC": {
+      "description": "Overhead panel — hydraulic system",
+      "prefix": "HYDRAULIC_",
+      "controls": {
+        "HYDRAULIC_ENG_1_PUMP": { "type": "switch", "description": "Engine 1 hydraulic pump" },
+        "HYDRAULIC_ELEC_1_PUMP": { "type": "switch", "description": "Electric 1 hydraulic pump" },
+        "HYDRAULIC_ENG_2_PUMP": { "type": "switch", "description": "Engine 2 hydraulic pump" },
+        "HYDRAULIC_ELEC_2_PUMP": { "type": "switch", "description": "Electric 2 hydraulic pump" }
+      }
+    },
+    "OVERHEAD_ANTI_ICE": {
+      "description": "Overhead panel — anti-ice and window heat",
+      "controls": {
+        "DEICE_WING": { "type": "switch", "description": "Wing anti-ice" },
+        "DEICE_ENG_1": { "type": "switch", "description": "Engine 1 anti-ice" },
+        "DEICE_ENG_2": { "type": "switch", "description": "Engine 2 anti-ice" },
+        "DEICE_L_SIDE": { "type": "switch", "description": "Window heat left side" },
+        "DEICE_L_FWD": { "type": "switch", "description": "Window heat left forward" },
+        "DEICE_R_SIDE": { "type": "switch", "description": "Window heat right side" },
+        "DEICE_R_FWD": { "type": "switch", "description": "Window heat right forward" }
+      }
+    },
+    "OVERHEAD_PRESSURIZATION": {
+      "description": "Overhead panel — pressurization and air conditioning",
+      "prefix": "PRESSURIZATION_",
+      "controls": {
+        "PRESSURIZATION_L_PACK": { "type": "switch", "description": "Left pack", "values": "0=HIGH, 1=AUTO, 2=OFF" },
+        "PRESSURIZATION_R_PACK": { "type": "switch", "description": "Right pack" },
+        "PRESSURIZATION_ISOLATION_VALVE": { "type": "switch", "description": "Isolation valve", "values": "0=OPEN, 1=AUTO, 2=CLOSE" },
+        "PRESSURIZATION_ENGINE_BLEED_1": { "type": "switch", "description": "Engine bleed 1" },
+        "PRESSURIZATION_ENGINE_BLEED_2": { "type": "switch", "description": "Engine bleed 2" },
+        "PRESSURIZATION_APU_BLEED": { "type": "switch", "description": "APU bleed" },
+        "PRESSURIZATION_PRESS_SELEC": { "type": "knob", "description": "Pressurization mode", "values": "0=AUTO, 1=ALTN, 2=MAN" },
+        "PRESSURIZATION_LAND_ALT": { "type": "knob_infinite", "description": "Landing altitude selector" },
+        "PRESSURIZATION_FLT_ALT": { "type": "knob_infinite", "description": "Flight altitude selector" }
+      }
+    },
+    "OVERHEAD_MISC": {
+      "description": "Overhead panel — miscellaneous controls",
+      "controls": {
+        "FLT_CONTROLS_PANEL_YAW_DAMPER": { "type": "switch", "description": "Yaw damper" },
+        "PASSENGER_NO_SMOKING": { "type": "switch", "description": "No smoking sign", "values": "0=ON, 1=AUTO, 2=OFF" },
+        "PASSENGER_FASTEN_BELTS": { "type": "switch", "description": "Fasten belts sign" },
+        "AFT_OVHD_L_IRS": { "type": "knob", "description": "Left IRS mode", "values": "0=OFF, 1=ALIGN, 2=NAV, 3=ATT" },
+        "AFT_OVHD_R_IRS": { "type": "knob", "description": "Right IRS mode" },
+        "AFT_OVHD_DOME_LIGHT": { "type": "switch", "description": "Dome light", "values": "0=BRT, 1=OFF, 2=DIM" }
+      }
+    },
+    "PEDESTAL_ENGINE": {
+      "description": "Pedestal — engine controls",
+      "prefix": "ENGINE_",
+      "controls": {
+        "ENGINE_THROTTLE_1": { "type": "lever", "description": "Throttle lever 1" },
+        "ENGINE_THROTTLE_2": { "type": "lever", "description": "Throttle lever 2" },
+        "ENGINE_AT_DISENGAGE_1": { "type": "button", "description": "AT disengage 1" },
+        "ENGINE_AT_DISENGAGE_2": { "type": "button", "description": "AT disengage 2" },
+        "ENGINE_TOGA_1": { "type": "button", "description": "TOGA switch 1" },
+        "ENGINE_TOGA_2": { "type": "button", "description": "TOGA switch 2" },
+        "ENGINE_STARTER_1": { "type": "switch", "description": "Engine 1 start lever", "values": "0=CUTOFF, 1=IDLE" },
+        "ENGINE_STARTER_2": { "type": "switch", "description": "Engine 2 start lever" }
+      }
+    },
+    "PEDESTAL_HANDLING": {
+      "description": "Pedestal — flight controls",
+      "prefix": "HANDLING_",
+      "controls": {
+        "HANDLING_FLAPS": { "type": "lever", "description": "Flaps lever", "values": "0=UP, 1=1, 2=2, 3=5, 4=10, 5=15, 6=25, 7=30, 8=40" },
+        "HANDLING_SPEED_BRAKES": { "type": "lever", "description": "Speed brake lever", "values": "0=Down, 1=Armed, 2=Flight, 3=Up" },
+        "HANDLING_ELEVATOR_TRIM": { "type": "wheel", "description": "Elevator trim wheel" }
+      }
+    },
+    "PEDESTAL_LANDING": {
+      "description": "Pedestal — landing controls",
+      "controls": {
+        "LANDING_PARKING_BRAKE": { "type": "lever", "description": "Parking brake handle" },
+        "LANDING_GEARS": { "type": "lever", "description": "Landing gear lever", "values": "0=UP, 1=DOWN" }
+      }
+    },
+    "PEDESTAL_MISC": {
+      "description": "Pedestal — autobrake, trim, transponder",
+      "controls": {
+        "FWD_PDSTL_AUTOBRAKE": { "type": "knob", "description": "Autobrake selector", "values": "0=RTO, 1=OFF, 2=1, 3=2, 4=3, 5=MAX" },
+        "TRIM_PANEL_RUDDER_TRIM": { "type": "knob", "description": "Rudder trim" },
+        "TRIM_PANEL_STAB_TRIM_PRMY": { "type": "switch", "description": "Stab trim primary cutout" },
+        "TRIM_PANEL_STAB_TRIM_BACKUP": { "type": "switch", "description": "Stab trim backup cutout" },
+        "XPDR_PANEL_XPDR_MODE": { "type": "knob", "description": "Transponder mode", "values": "0=STBY, 1=ON, 2=AUTO" },
+        "XPDR_PANEL_XPDR_OPERATING_MODE": { "type": "knob", "description": "TCAS mode", "values": "0=ALT OFF, 1=XPNDR, 2=TA ONLY, 3=TA/RA" }
+      }
+    },
+    "FMC_CDU": {
+      "description": "FMC CDU keys — use press_cdu_key or type_text instead of fire_input_event",
+      "prefix": "FMC_EV_",
+      "note": "CDU keys are best accessed via press_cdu_key(key) and type_text(text) tools. The input events follow the pattern FMC_EV_{KEY}_{CDU_NUM} (e.g. FMC_EV_L1_1, FMC_EV_INIT_1)",
+      "keys": ["A-Z", "0-9", "L1-L6", "R1-R6", "INIT", "RTE", "DEPARR", "LEGS", "HOLD", "PROG", "EXEC", "MENU", "NAVRAD", "VNAV", "FIX", "FMCCOM", "ATC", "N1LIMIT", "PREVPAGE", "NEXTPAGE", "CLR", "DEL", "SP", "DIV", "DOT", "PLUSMINUS"]
+    }
+  }
+}

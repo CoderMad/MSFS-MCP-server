@@ -1,0 +1,5 @@
+node_modules/
+*.bak
+*.bak2
+# Kiro workspace config and validation harness (local only, not part of the server)
+.kiro/

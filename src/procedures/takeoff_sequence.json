@@ -1,0 +1,262 @@
+{
+  "name": "B737 MAX 8 Takeoff Sequence",
+  "version": "4.4.0",
+  "description": "Takeoff with corrected elevator scale: SETSIMVAR Position unit = -1.0 to +1.0 (normalized). Closed-loop pitch controller targeting 10-15 deg.",
+  "elevatorControl": {
+    "method": "SETSIMVAR via InspectHTML",
+    "simvar": "ELEVATOR POSITION",
+    "unit": "Position",
+    "range": "-1.0 (full nose down) to +1.0 (full nose up). SDK: 'position' uses 'part' base scale = normalized float.",
+    "sdkSource": "Simulation_Variable_Units.htm — 'position' uses 'part' base scale. 'position 16K' uses 0-16384. Plain 'position' = normalized -1.0 to +1.0.",
+    "pitchSignConvention": "MSFS PLANE PITCH DEGREES: NEGATIVE = nose up, POSITIVE = nose down",
+    "rotateValue": 0.08,
+    "rotateDescription": "8% elevator deflection for initial rotation kick. Targets ~10 deg pitch at typical takeoff weight/speed.",
+    "neutralValue": 0,
+    "url_rotate": "gc://SETSIMVAR?ELEVATOR POSITION=0.08&unit=Position",
+    "url_neutral": "gc://SETSIMVAR?ELEVATOR POSITION=0&unit=Position",
+    "pitchTracking": {
+      "targetPitch": 12.5,
+      "pitchMin": 10,
+      "pitchMax": 15,
+      "proportionalGain": 0.005,
+      "elevMin": 0,
+      "elevMax": 0.2,
+      "pollIntervalMs": 500,
+      "description": "Proportional controller on normalized -1..+1 scale. Kp=0.005 (elev units per degree error). PLANE PITCH DEGREES negated (MSFS neg=nose up). Clamp 0 to 0.20."
+    }
+  },
+  "controlMethods": {
+    "tcp_send_event": [
+      "PARKING_BRAKES",
+      "THROTTLE_SET",
+      "THROTTLE_FULL",
+      "FLAPS_DECR",
+      "GEAR_UP",
+      "AP_MASTER"
+    ],
+    "ffi_set_input_event": [
+      "FCC_LNAV",
+      "FCC_VNAV",
+      "FCC_FD_1",
+      "FCC_FD_2"
+    ],
+    "ffi_setsimvar": [
+      "ELEVATOR POSITION (Position, -16384..+16384)",
+      "L:XMLVAR_FCC_FD_1_Value",
+      "L:XMLVAR_FCC_FD_2_Value",
+      "L:XMLVAR_FCC_BANK_ANGLE_SEL_Value",
+      "L:XMLVAR_FCC_ALTITUDE_SEL"
+    ]
+  },
+  "parameters": {
+    "V1": {
+      "source": "L:AIRLINER_V1_SPEED"
+    },
+    "VR": {
+      "source": "L:AIRLINER_VR_SPEED"
+    },
+    "V2": {
+      "source": "L:AIRLINER_V2_SPEED"
+    },
+    "thrReductionAlt": {
+      "source": "L:AIRLINER_THR_RED_ALT",
+      "default": 1300
+    },
+    "apEngageAlt": {
+      "description": "THR_RED + 1000 ft AGL",
+      "derived": "thrReductionAlt + 1000"
+    },
+    "cruiseAltitude": {
+      "source": "From PERF INIT CRZ ALT"
+    }
+  },
+  "steps": [
+    {
+      "step": 1,
+      "phase": "preflight",
+      "name": "Release parking brake",
+      "action": "send_event",
+      "event": "PARKING_BRAKES"
+    },
+    {
+      "step": 2,
+      "phase": "preflight",
+      "name": "Set FD1 ON",
+      "action": "ffi_setsimvar",
+      "url": "gc://SETSIMVAR?L:XMLVAR_FCC_FD_1_Value=1&unit=number"
+    },
+    {
+      "step": 3,
+      "phase": "preflight",
+      "name": "Set FD2 ON",
+      "action": "ffi_setsimvar",
+      "url": "gc://SETSIMVAR?L:XMLVAR_FCC_FD_2_Value=1&unit=number"
+    },
+    {
+      "step": 4,
+      "phase": "preflight",
+      "name": "Arm LNAV",
+      "action": "ffi_set_input_event",
+      "inputEvent": "FCC_LNAV"
+    },
+    {
+      "step": 5,
+      "phase": "preflight",
+      "name": "Arm VNAV",
+      "action": "ffi_set_input_event",
+      "inputEvent": "FCC_VNAV"
+    },
+    {
+      "step": 6,
+      "phase": "preflight",
+      "name": "Set bank angle 25 deg",
+      "action": "ffi_setsimvar",
+      "url": "gc://SETSIMVAR?L:XMLVAR_FCC_BANK_ANGLE_SEL_Value=25&unit=number"
+    },
+    {
+      "step": 7,
+      "phase": "preflight",
+      "name": "Set MCP altitude to cruise",
+      "action": "ffi_setsimvar",
+      "url": "gc://SETSIMVAR?L:XMLVAR_FCC_ALTITUDE_SEL=${cruiseAltitude}&unit=number"
+    },
+    {
+      "step": 8,
+      "phase": "takeoff",
+      "name": "Throttle 40% stabilize",
+      "action": "send_event",
+      "event": "THROTTLE_SET",
+      "data": 6554,
+      "waitMs": 3000
+    },
+    {
+      "step": 9,
+      "phase": "takeoff",
+      "name": "TOGA thrust",
+      "action": "send_event",
+      "event": "THROTTLE_FULL"
+    },
+    {
+      "step": 10,
+      "phase": "takeoff",
+      "name": "Monitor to V1",
+      "action": "poll",
+      "simvar": "AIRSPEED INDICATED",
+      "condition": ">= V1",
+      "pollIntervalMs": 500,
+      "callout": "V1"
+    },
+    {
+      "step": 11,
+      "phase": "takeoff",
+      "name": "Rotate at VR",
+      "action": "ffi_setsimvar",
+      "url": "gc://SETSIMVAR?ELEVATOR POSITION=0.08&unit=Position",
+      "description": "Rotation at 8% elevator deflection (0.08 on -1..+1 scale). Pitch controller takes over immediately."
+    },
+    {
+      "step": 12,
+      "phase": "initial_climb",
+      "name": "Positive rate — Gear up",
+      "action": "poll_then_act",
+      "pollSimvar": "VERTICAL SPEED",
+      "condition": "> 500",
+      "thenEvent": "GEAR_UP",
+      "callout": "Positive rate, gear up"
+    },
+    {
+      "step": 13,
+      "phase": "initial_climb",
+      "name": "Pitch-tracking climb to altitude gate",
+      "action": "pitch_track_loop",
+      "description": "Proportional pitch controller: target 12.5 deg (10-15 band), Kp=0.005, elev 0..0.20. PLANE PITCH DEGREES negated (MSFS: neg=nose up). Scale: -1.0 to +1.0."
+    },
+    {
+      "step": 14,
+      "phase": "initial_climb",
+      "name": "At THR_RED+1000 ft — neutral elevator, AP, flaps",
+      "action": "poll_then_sequence",
+      "pollSimvar": "PLANE ALT ABOVE GROUND",
+      "condition": ">= apEngageAlt",
+      "pollIntervalMs": 1000,
+      "description": "Gate: THR_RED (1300) + 1000 = 2300 ft AGL",
+      "thenSequence": [
+        {
+          "action": "ffi_setsimvar",
+          "url": "gc://SETSIMVAR?ELEVATOR POSITION=0&unit=Position",
+          "description": "Neutralize elevator"
+        },
+        {
+          "action": "wait",
+          "waitMs": 500
+        },
+        {
+          "action": "send_event",
+          "event": "AP_MASTER",
+          "description": "Engage autopilot"
+        },
+        {
+          "action": "wait",
+          "waitMs": 1000
+        },
+        {
+          "action": "send_event",
+          "event": "FLAPS_DECR",
+          "description": "Flaps 5->2"
+        },
+        {
+          "action": "wait",
+          "waitMs": 3000
+        },
+        {
+          "action": "send_event",
+          "event": "FLAPS_DECR",
+          "description": "Flaps 2->1"
+        },
+        {
+          "action": "wait",
+          "waitMs": 3000
+        },
+        {
+          "action": "send_event",
+          "event": "FLAPS_DECR",
+          "description": "Flaps 1->UP"
+        }
+      ]
+    },
+    {
+      "step": 15,
+      "phase": "climb",
+      "name": "Verify LNAV active",
+      "action": "read",
+      "simvar": "L:AP_LNAV_ACTIVE",
+      "expected": 1
+    },
+    {
+      "step": 16,
+      "phase": "climb",
+      "name": "Verify VNAV active",
+      "action": "read",
+      "simvar": "L:AP_VNAV_ACTIVE",
+      "expected": 1
+    },
+    {
+      "step": 17,
+      "phase": "climb",
+      "name": "Verify flaps UP",
+      "action": "read",
+      "simvar": "FLAPS HANDLE INDEX",
+      "expected": 0
+    }
+  ],
+  "notes": [
+    "ELEVATOR POSITION SimVar uses Position unit: -16384 (full nose down) to +16384 (full nose up). 0 = neutral.",
+    "Elevator neutral + AP + flap retraction ALL gated by THR_RED+1000 ft AGL (single altitude trigger).",
+    "Flap retraction sequential: 5->2->1->UP with 3s speed-build waits.",
+    "LNAV/VNAV arm during preflight via FCC_LNAV/FCC_VNAV input events, auto-activate after AP.",
+    "AP_MASTER requires neutral elevator — step 14 neutralizes first.",
+    "SDK reference: Aircraft_Control_Variables.htm — ELEVATOR POSITION, Percent elevator input deflection.",
+    "v4.4.0: SETSIMVAR 'Position' unit = -1.0 to +1.0 normalized (SDK 'part' base scale). NOT -16384 to +16384.",
+    "v4.4.0: Initial rotation = 0.08 (8%). Pitch controller Kp=0.005, elevMax=0.20. PLANE PITCH DEGREES: negative=nose up in MSFS."
+  ]
+}

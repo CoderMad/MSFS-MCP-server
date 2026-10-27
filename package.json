@@ -1,0 +1,45 @@
+{
+  "name": "@boeing737-max8/msfs-pro-mcp",
+  "version": "2.3.0",
+  "description": "MSFS Professional Edition MCP Server — Unified SimConnect gateway for Boeing 737 MAX 8 flight model",
+  "main": "src/index.js",
+  "bin": {
+    "msfs-pro-mcp": "src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test",
+    "generate-tdd": "node scripts/generate_tdd.js"
+  },
+  "keywords": [
+    "mcp",
+    "msfs",
+    "simconnect",
+    "737",
+    "boeing",
+    "flight-simulator",
+    "model-context-protocol"
+  ],
+  "license": "UNLICENSED",
+  "os": ["win32"],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "src/",
+    "vendor/",
+    "docs/",
+    "README.md"
+  ],
+  "publishConfig": {
+    "registry": "https://artifactory-ext.digitalaviationservices.com/artifactory/api/npm/bvat-npm-release-local/"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "koffi": "^3.2.1"
+  },
+  "devDependencies": {
+    "docx": "^9.5.0"
+  }
+}
+
